@@ -4,9 +4,11 @@ import { redirect } from "next/navigation";
 
 export async function getSessionData() {
   const sessionData = cookies().get("session")?.value ?? "{}";
+  console.log({ sessionData });
   const data: { username?: string; password?: string } =
     JSON.parse(sessionData);
 
+  console.log({ data });
   return data;
 }
 
