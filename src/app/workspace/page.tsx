@@ -3,28 +3,9 @@ import NewTaskDialog from "@/components/board/new-task-dialog";
 import { isUserAuthenticated } from "@/lib/session";
 import { redirect } from "next/navigation";
 
-const getInitialTasks = async () => {
-  try {
-    const res = await fetch(`${process.env.URL}/api/initial-data`, {
-      method: "GET",
-      credentials: "same-origin",
-    });
-
-    const jsonData = await res.json();
-    if (res.status === 400) {
-      throw Error(jsonData.message);
-    }
-    return jsonData;
-  } catch (e) {
-    console.log("-----------------");
-    console.log(e);
-    console.log("+++++++++++++++++");
-  }
-};
-
 export default async function page() {
   const isAuthenticated = await isUserAuthenticated();
-  const initialTasks = await getInitialTasks();
+  console.log({ isAuthenticated });
 
   if (!isAuthenticated) {
     redirect("/");
@@ -36,7 +17,7 @@ export default async function page() {
         <div className="flex items-start justify-between">
           <NewTaskDialog />
         </div>
-        <KanbanBoard initialTasks={initialTasks} />
+        <KanbanBoard />
       </div>
     </div>
   );

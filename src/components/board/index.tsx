@@ -42,15 +42,7 @@ const defaultCols = [
 
 export type ColumnId = (typeof defaultCols)[number]["id"];
 
-export function KanbanBoard({
-  initialTasks,
-}: {
-  initialTasks?: {
-    username: string;
-    tasks: Task[];
-    columns: Column[];
-  };
-}) {
+export function KanbanBoard() {
   // const [columns, setColumns] = useState<Column[]>(defaultCols);
   const columns = useTaskStore((state) => state.columns);
   const setColumns = useTaskStore((state) => state.setCols);
@@ -78,18 +70,35 @@ export function KanbanBoard({
   }, [isMounted]);
 
   useEffect(() => {
-    console.log(initialTasks);
     if (!isMounted) return;
 
-    if (initialTasks?.columns) {
-      setColumns(initialTasks?.columns);
-      console.log(initialTasks?.columns);
+    async function fillInitialValues() {
+      try {
+        const res = await fetch(`/api/initial-data`, {
+          method: "GET",
+          credentials: "same-origin",
+        });
+
+        const initialTasks = await res.json();
+        if (res.status === 400) {
+          // @ts-ignore
+          throw Error(jsonData.message);
+        }
+        if (initialTasks?.columns) {
+          setColumns(initialTasks?.columns);
+          console.log(initialTasks?.columns);
+        }
+
+        if (initialTasks?.tasks) {
+          setTasks(initialTasks?.tasks);
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
 
-    if (initialTasks?.tasks) {
-      setTasks(initialTasks?.tasks);
-    }
-  }, [initialTasks, setColumns, setTasks, isMounted]);
+    fillInitialValues();
+  }, [setColumns, setTasks, isMounted]);
 
   if (!isMounted) return;
 
