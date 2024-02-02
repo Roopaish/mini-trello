@@ -75,7 +75,7 @@ const setAuthCookie = (username: string, password: string) => {
     `{"username":"${username}","password":"${password}"}`,
     {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24, // One day
       path: "/",
     }
