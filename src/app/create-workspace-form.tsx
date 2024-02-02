@@ -66,12 +66,10 @@ export function CreateWorkspaceForm() {
       <form onSubmit={handleSubmit(onSubmit)} className=" max-w-md">
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="username">
-              Username
-            </Label>
+            <Label htmlFor="username">Username</Label>
             <Input
               id="username"
-              placeholder="Rupesh Budhathoki"
+              placeholder="roopaish"
               type="username"
               autoCapitalize="none"
               autoComplete="username"
@@ -86,12 +84,10 @@ export function CreateWorkspaceForm() {
             )}
           </div>
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="password">
-              Password
-            </Label>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
-              placeholder="Rupesh Budhathoki"
+              placeholder=""
               type="password"
               autoCapitalize="none"
               autoComplete="password"

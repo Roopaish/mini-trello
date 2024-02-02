@@ -10,8 +10,8 @@ Trello clone using Nextjs, Shadcn-ui and zustand
 
 ## How it works
 
-- We can create multiple personal workspaces using the name
-- No auth is used
+- A personal workspace is created for one user
+- Simple Cookie auth is used
 - If the name matches then old workspace will be opened else new is created
 - All is done using JSON-like objects (no database) so the data does not persist if we redeploy the app
 
