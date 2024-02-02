@@ -10,6 +10,7 @@ const getInitialTasks = async (username?: string) => {
       `${process.env.URL}/api/initial-data?username=${username}`,
       {
         method: "GET",
+        credentials: "same-origin",
       }
     );
 

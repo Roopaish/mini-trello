@@ -16,7 +16,7 @@ export async function GET(request: Request) {
   const savedData = db.tasks.find((t) => t.username === username);
 
   if (!!savedData) {
-    return NextResponse.json({ ...savedData });
+    return NextResponse.json({ ...savedData }, { status: 200 });
   } else {
     return NextResponse.json({ message: "No data found" }, { status: 404 });
   }

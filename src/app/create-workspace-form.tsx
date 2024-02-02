@@ -41,6 +41,7 @@ export function CreateWorkspaceForm() {
       const res = await fetch("/api/join-workspace", {
         method: "POST",
         body: JSON.stringify(data),
+        credentials: "same-origin",
       });
 
       const jsonData = await res.json();
