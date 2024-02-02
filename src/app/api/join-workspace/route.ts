@@ -41,7 +41,13 @@ export async function POST(request: Request) {
     setAuthCookie(username, password);
     db.tasks.push({
       username: username,
-      tasks: [],
+      tasks: [
+        {
+          id: "12",
+          status: "TODO",
+          title: "Hello World!",
+        },
+      ],
       columns: [
         {
           id: "TODO",
