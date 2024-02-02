@@ -1,16 +1,12 @@
 import db from "@/db";
+import { getSessionData } from "@/lib/session";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const username = searchParams.get("username");
-  console.log({ username });
+  const { username } = await getSessionData();
 
   if (!username) {
-    return NextResponse.json(
-      { message: "Please provide username" },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: "Please login" }, { status: 400 });
   }
 
   const savedData = db.tasks.find((t) => t.username === username);

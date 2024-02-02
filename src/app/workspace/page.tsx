@@ -1,18 +1,14 @@
 import { KanbanBoard } from "@/components/board";
 import NewTaskDialog from "@/components/board/new-task-dialog";
-import { getSessionData, isUserAuthenticated } from "@/lib/session";
+import { isUserAuthenticated } from "@/lib/session";
 import { redirect } from "next/navigation";
 
-const getInitialTasks = async (username?: string) => {
-  if (!username) return null;
+const getInitialTasks = async () => {
   try {
-    const res = await fetch(
-      `${process.env.URL}/api/initial-data?username=${username}`,
-      {
-        method: "GET",
-        credentials: "same-origin",
-      }
-    );
+    const res = await fetch(`${process.env.URL}/api/initial-data`, {
+      method: "GET",
+      credentials: "same-origin",
+    });
 
     const jsonData = await res.json();
     if (res.status === 400) {
@@ -28,8 +24,7 @@ const getInitialTasks = async (username?: string) => {
 
 export default async function page() {
   const isAuthenticated = await isUserAuthenticated();
-  const session = await getSessionData();
-  const initialTasks = await getInitialTasks(session.username);
+  const initialTasks = await getInitialTasks();
 
   if (!isAuthenticated) {
     redirect("/");
