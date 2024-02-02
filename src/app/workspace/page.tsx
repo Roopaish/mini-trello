@@ -1,7 +1,6 @@
 import { KanbanBoard } from "@/components/board";
 import NewTaskDialog from "@/components/board/new-task-dialog";
 import { isUserAuthenticated } from "@/lib/session";
-import { redirect } from "next/navigation";
 
 const getInitialTasks = async () => {
   try {
@@ -27,7 +26,7 @@ export default async function page() {
   const initialTasks = await getInitialTasks();
 
   if (!isAuthenticated) {
-    redirect("/");
+    // redirect("/");
   }
 
   return (
