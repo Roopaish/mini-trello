@@ -59,34 +59,36 @@ export function ColumnActions({
           ref={inputRef}
         />
       </form>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="secondary" className="ml-1">
-            <span className="sr-only">Actions</span>
-            <DotsHorizontalIcon className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            onSelect={() => {
-              setIsEditDisable(!editDisable);
-              setTimeout(() => {
-                inputRef.current && inputRef.current?.focus();
-              }, 500);
-            }}
-          >
-            Rename
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
+      {!["TODO", "IN_PROGRESS", "DONE"].includes(id as string) && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="secondary" className="ml-1">
+              <span className="sr-only">Actions</span>
+              <DotsHorizontalIcon className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onSelect={() => {
+                setIsEditDisable(!editDisable);
+                setTimeout(() => {
+                  inputRef.current && inputRef.current?.focus();
+                }, 500);
+              }}
+            >
+              Rename
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
 
-          <DropdownMenuItem
-            onSelect={() => setShowDeleteDialog(true)}
-            className="text-red-600"
-          >
-            Delete Section
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+            <DropdownMenuItem
+              onSelect={() => setShowDeleteDialog(true)}
+              className="text-red-600"
+            >
+              Delete Section
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
       <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>

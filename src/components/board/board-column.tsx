@@ -92,6 +92,7 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
           defaultValue={column.title}
           className="text-base !mt-0 mr-auto"
         /> */}
+
         <ColumnActions id={column.id} title={column.title} />
       </CardHeader>
       <CardContent className="flex flex-grow flex-col gap-4 p-2 overflow-y-auto overflow-x-hidden">

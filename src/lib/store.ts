@@ -45,34 +45,88 @@ export const useTaskStore = create<State & Actions>()(
       tasks: [],
       columns: defaultCols,
       draggedTask: null,
-      addTask: (title: string, description?: string) =>
-        set((state) => ({
-          tasks: [
-            ...state.tasks,
-            { id: uuid(), title, description, status: "TODO" },
-          ],
-        })),
+      addTask: async (title: string, description?: string) => {
+        try {
+          const id = uuid();
+
+          await fetch(`/api/tasks`, {
+            method: "POST",
+            body: JSON.stringify({ id, title }),
+            credentials: "same-origin",
+          });
+
+          set((state) => ({
+            tasks: [
+              ...state.tasks,
+              { id: id, title, description, status: "TODO" },
+            ],
+          }));
+        } catch (e) {}
+      },
       updateCol: (id: UniqueIdentifier, newName: string) =>
         set((state) => ({
           columns: state.columns.map((col) =>
             col.id === id ? { ...col, title: newName } : col
           ),
         })),
-      addCol: (title: string) =>
-        set((state) => ({
-          columns: [...state.columns, { id: uuid(), title }],
-        })),
+      addCol: async (title: string) => {
+        try {
+          const newCol = { id: uuid(), title };
+          await fetch(`/api/column`, {
+            method: "POST",
+            body: JSON.stringify({ ...newCol }),
+            credentials: "same-origin",
+          });
+          set((state) => ({
+            columns: [...state.columns, newCol],
+          }));
+        } catch (e) {
+          console.log(e);
+        }
+      },
       dragTask: (id: string | null) => set({ draggedTask: id }),
       removeTask: (id: string) =>
         set((state) => ({
           tasks: state.tasks.filter((task) => task.id !== id),
         })),
-      removeCol: (id: UniqueIdentifier) =>
-        set((state) => ({
-          columns: state.columns.filter((col) => col.id !== id),
-        })),
-      setTasks: (newTasks: Task[]) => set({ tasks: newTasks }),
-      setCols: (newCols: Column[]) => set({ columns: newCols }),
+      removeCol: async (id: UniqueIdentifier) => {
+        try {
+          await fetch(`/api/column`, {
+            method: "DELETE",
+            body: JSON.stringify({ id }),
+            credentials: "same-origin",
+          });
+          set((state) => ({
+            columns: state.columns.filter((col) => col.id !== id),
+          }));
+        } catch (e) {
+          console.log(e);
+        }
+      },
+      setTasks: async (newTasks: Task[]) => {
+        try {
+          await fetch(`/api/tasks`, {
+            method: "POST",
+            body: JSON.stringify({ tasks: newTasks }),
+            credentials: "same-origin",
+          });
+          set({ tasks: newTasks });
+        } catch (e) {
+          console.log(e);
+        }
+      },
+      setCols: async (newCols: Column[]) => {
+        try {
+          await fetch(`/api/column`, {
+            method: "POST",
+            body: JSON.stringify({ columns: newCols }),
+            credentials: "same-origin",
+          });
+          set({ columns: newCols });
+        } catch (e) {
+          console.log(e);
+        }
+      },
     }),
     { name: "task-store", skipHydration: true }
   )

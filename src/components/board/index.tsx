@@ -42,7 +42,15 @@ const defaultCols = [
 
 export type ColumnId = (typeof defaultCols)[number]["id"];
 
-export function KanbanBoard() {
+export function KanbanBoard({
+  initialTasks,
+}: {
+  initialTasks?: {
+    username: string;
+    tasks: Task[];
+    columns: Column[];
+  };
+}) {
   // const [columns, setColumns] = useState<Column[]>(defaultCols);
   const columns = useTaskStore((state) => state.columns);
   const setColumns = useTaskStore((state) => state.setCols);
@@ -70,8 +78,19 @@ export function KanbanBoard() {
   }, [isMounted]);
 
   useEffect(() => {
-    useTaskStore.persist.rehydrate();
-  }, []);
+    console.log(initialTasks);
+    if (!isMounted) return;
+
+    if (initialTasks?.columns) {
+      setColumns(initialTasks?.columns);
+      console.log(initialTasks?.columns);
+    }
+
+    if (initialTasks?.tasks) {
+      setTasks(initialTasks?.tasks);
+    }
+  }, [initialTasks, setColumns, setTasks, isMounted]);
+
   if (!isMounted) return;
 
   function getDraggingTaskData(taskId: UniqueIdentifier, columnId: ColumnId) {

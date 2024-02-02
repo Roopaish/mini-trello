@@ -1,4 +1,4 @@
-import { users } from "@/db";
+import db from "@/db";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const user = users.find((u) => u.username === username);
+  const user = db.users.find((u) => u.username === username);
 
   if (!!user) {
     if (password === user.password) {
@@ -37,8 +37,26 @@ export async function POST(request: Request) {
       );
     }
   } else {
-    users.push({ username, password });
+    db.users.push({ username, password });
     setAuthCookie(username, password);
+    db.tasks.push({
+      username: username,
+      tasks: [],
+      columns: [
+        {
+          id: "TODO",
+          title: "Todo",
+        },
+        {
+          id: "IN_PROGRESS",
+          title: "In progress",
+        },
+        {
+          id: "DONE",
+          title: "Done",
+        },
+      ],
+    });
     return NextResponse.json({
       message: "Account is created! Opening a new workspace for you!",
     });

@@ -1,4 +1,4 @@
-import { users } from "@/db";
+import db from "@/db";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -19,7 +19,7 @@ export async function isUserAuthenticated() {
   const data = await getSessionData();
 
   if (!!data?.username && !!data?.password) {
-    const user = users.find((u) => u.username === data?.username);
+    const user = db.users.find((u) => u.username === data?.username);
 
     if (!!user) {
       if (data?.password === user.password) {

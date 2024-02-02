@@ -6,6 +6,7 @@ Trello clone using Nextjs, Shadcn-ui and zustand
 
 - Install pnpm: `npm install -g pnpm`
 - Instal packages: `pnpm install`
+- Create .env file and add: `URL = http://localhost:3000`
 - Run the server: `pnpm dev`
 
 ## How it works

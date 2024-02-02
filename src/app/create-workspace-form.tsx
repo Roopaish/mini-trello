@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Text } from "@/components/ui/text";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -60,16 +59,18 @@ export function CreateWorkspaceForm() {
 
   return (
     <div className={cn("grid gap-6 w-full")}>
-      <Text variant="h1">
+      <div className="text-2xl">
         Create or Join existing workspace to manage your tasks.
-      </Text>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className=" max-w-md">
         <div className="grid gap-2">
           <div className="grid gap-1">
-            <Label htmlFor="username">Username</Label>
+            <Label className="sr-only" htmlFor="username">
+              Username
+            </Label>
             <Input
               id="username"
-              placeholder="roopaish"
+              placeholder="Username"
               type="username"
               autoCapitalize="none"
               autoComplete="username"
@@ -84,10 +85,12 @@ export function CreateWorkspaceForm() {
             )}
           </div>
           <div className="grid gap-1">
-            <Label htmlFor="password">Password</Label>
+            <Label className="sr-only" htmlFor="password">
+              Password
+            </Label>
             <Input
               id="password"
-              placeholder=""
+              placeholder="Password"
               type="password"
               autoCapitalize="none"
               autoComplete="password"

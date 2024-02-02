@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useTaskStore } from "@/lib/store";
 
 export default function NewTaskDialog() {
@@ -24,8 +23,8 @@ export default function NewTaskDialog() {
     const formData = new FormData(form);
     const { title, description } = Object.fromEntries(formData);
 
-    if (typeof title !== "string" || typeof description !== "string") return;
-    addTask(title, description);
+    if (typeof title !== "string") return;
+    addTask(title);
   };
 
   return (
@@ -55,14 +54,14 @@ export default function NewTaskDialog() {
               className="col-span-4"
             />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
+          {/* <div className="grid grid-cols-4 items-center gap-4">
             <Textarea
               id="description"
               name="description"
               placeholder="Description..."
               className="col-span-4"
             />
-          </div>
+          </div> */}
         </form>
         <DialogFooter>
           <DialogTrigger asChild>

@@ -9,7 +9,7 @@ export default async function Home() {
     redirect("/workspace");
   }
   return (
-    <main className=" p-24">
+    <main className="p-6 md:p-24">
       <CreateWorkspaceForm />
     </main>
   );
