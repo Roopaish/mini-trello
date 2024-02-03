@@ -1,4 +1,4 @@
-"use server";
+import { JSONFilePreset } from "lowdb/node";
 
 import type { Column } from "@/components/board/board-column";
 import type { Task } from "@/lib/store";
@@ -39,5 +39,8 @@ const tasks: {
   },
 ];
 
-const db = { users, tasks };
+const defaultData = { users, tasks };
+
+const db = JSONFilePreset("db.json", defaultData);
+
 export default db;

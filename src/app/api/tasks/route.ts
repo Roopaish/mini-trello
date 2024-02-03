@@ -23,12 +23,14 @@ export async function POST(request: Request) {
 
     const { username } = await getSessionData();
 
-    const userIndex = db.tasks.findIndex((user) => user.username === username);
+    const userIndex = (await db).data.tasks.findIndex(
+      (user) => user.username === username
+    );
     if (userIndex === -1) {
       return NextResponse.json({ message: "User not found" });
     }
 
-    db.tasks[userIndex].tasks.push({
+    (await db).data.tasks[userIndex].tasks.push({
       id: id,
       status: "TODO",
       title,
@@ -39,12 +41,14 @@ export async function POST(request: Request) {
   } else {
     const { username } = await getSessionData();
 
-    const userIndex = db.tasks.findIndex((user) => user.username === username);
+    const userIndex = (await db).data.tasks.findIndex(
+      (user) => user.username === username
+    );
     if (userIndex === -1) {
       return NextResponse.json({ message: "User not found" });
     }
 
-    db.tasks[userIndex].tasks = tasks;
+    (await db).data.tasks[userIndex].tasks = tasks;
 
     return NextResponse.json({ message: "Added all tasks" });
   }

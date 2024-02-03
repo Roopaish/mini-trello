@@ -19,12 +19,14 @@ export async function POST(request: Request) {
 
     const { username } = await getSessionData();
 
-    const userIndex = db.tasks.findIndex((user) => user.username === username);
+    const userIndex = (await db).data.tasks.findIndex(
+      (user) => user.username === username
+    );
     if (userIndex === -1) {
       return NextResponse.json({ message: "User not found" });
     }
 
-    db.tasks[userIndex].columns.push({
+    (await db).data.tasks[userIndex].columns.push({
       id: id,
       title,
     });
@@ -33,12 +35,14 @@ export async function POST(request: Request) {
   } else {
     const { username } = await getSessionData();
 
-    const userIndex = db.tasks.findIndex((user) => user.username === username);
+    const userIndex = (await db).data.tasks.findIndex(
+      (user) => user.username === username
+    );
     if (userIndex === -1) {
       return NextResponse.json({ message: "User not found" });
     }
 
-    db.tasks[userIndex].columns = columns;
+    (await db).data.tasks[userIndex].columns = columns;
 
     return NextResponse.json({ message: "Added all columns" });
   }
@@ -58,14 +62,16 @@ export async function DELETE(request: Request) {
 
   const { username } = await getSessionData();
 
-  const userIndex = db.tasks.findIndex((user) => user.username === username);
+  const userIndex = (await db).data.tasks.findIndex(
+    (user) => user.username === username
+  );
   if (userIndex === -1) {
     return NextResponse.json({ message: "User not found" });
   }
 
-  db.tasks[userIndex].columns = db.tasks[userIndex].columns.filter(
-    (col) => col.id !== colId
-  );
+  (await db).data.tasks[userIndex].columns = (await db).data.tasks[
+    userIndex
+  ].columns.filter((col) => col.id !== colId);
 
   return NextResponse.json({ message: "Removed column" });
 }

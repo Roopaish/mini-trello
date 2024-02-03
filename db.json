@@ -1,0 +1,67 @@
+{
+  "users": [
+    {
+      "username": "roopaish",
+      "password": "123456"
+    },
+    {
+      "username": "roopaish1",
+      "password": "123456"
+    }
+  ],
+  "tasks": [
+    {
+      "username": "roopaish",
+      "tasks": [
+        {
+          "id": "12",
+          "status": "IN_PROGRESS",
+          "title": "Hello",
+          "description": "Hi what is this?"
+        }
+      ],
+      "columns": [
+        {
+          "id": "TODO",
+          "title": "Todo"
+        },
+        {
+          "id": "IN_PROGRESS",
+          "title": "In progress"
+        },
+        {
+          "id": "DONE",
+          "title": "Done"
+        }
+      ]
+    },
+    {
+      "username": "roopaish1",
+      "tasks": [
+        {
+          "id": "12",
+          "status": "TODO",
+          "title": "Hello World!"
+        }
+      ],
+      "columns": [
+        {
+          "id": "TODO",
+          "title": "Todo"
+        },
+        {
+          "id": "IN_PROGRESS",
+          "title": "In progress"
+        },
+        {
+          "id": "DONE",
+          "title": "Done"
+        },
+        {
+          "id": "ed719b3a-05af-42be-9177-0546ed3af539",
+          "title": "heyy"
+        }
+      ]
+    }
+  ]
+}

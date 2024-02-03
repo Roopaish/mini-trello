@@ -14,10 +14,10 @@ Trello clone using Nextjs, Shadcn-ui and zustand
 - A personal workspace is created for one user
 - Simple Cookie auth is used
 - If the name matches then old workspace will be opened else new is created
-- All is done using JSON-like objects (no database) so the data does not persist if we redeploy the app
+- All is done using lowDB which saves files in json format
 
 ## Folder structure
 
 - This app uses shadcn library which puts components to src/components/ui directory for us to customize it easily
-- The database (sort of) data can be found in src/db/
+- The database data can be found in src/db/
 - The api implementation can be found in src/app/api/

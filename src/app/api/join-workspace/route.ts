@@ -21,8 +21,8 @@ export async function POST(request: Request) {
     );
   }
 
-  console.log({ allUsers: db.users });
-  const user = db.users.find((u) => u.username === username);
+  console.log({ allUsers: (await db).data.users });
+  const user = (await db).data.users.find((u) => u.username === username);
 
   if (!!user) {
     if (password === user.password) {
@@ -38,9 +38,9 @@ export async function POST(request: Request) {
       );
     }
   } else {
-    db.users.push({ username, password });
+    (await db).data.users.push({ username, password });
     setAuthCookie(username, password);
-    db.tasks.push({
+    (await db).data.tasks.push({
       username: username,
       tasks: [
         {

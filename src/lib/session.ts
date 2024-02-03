@@ -1,5 +1,3 @@
-"use server";
-
 import db from "@/db";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -24,15 +22,12 @@ export async function isUserAuthenticated() {
 
   console.log({ data });
   if (!!data?.username && !!data?.password) {
-    console.log({ username: data?.username, type: typeof data?.username });
-    console.log({ password: data?.password, type: typeof data?.password });
-    console.log({ users: db.users });
-    const user = db.users.find((u) => u.username === data?.username);
-    console.log({ user });
+    const user = (await db).data.users.find(
+      (u) => u.username === data?.username
+    );
 
     if (!!user) {
       if (data?.password === user.password) {
-        console.log({ password: data?.password });
         return true;
       }
     }
