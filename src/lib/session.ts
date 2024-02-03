@@ -24,7 +24,7 @@ export async function isUserAuthenticated() {
   if (!!data?.username && !!data?.password) {
     console.log({ username: data?.username, type: typeof data?.username });
     console.log({ password: data?.password, type: typeof data?.password });
-
+    console.log({ users: db.users });
     const user = db.users.find((u) => u.username === data?.username);
     console.log({ user });
 
