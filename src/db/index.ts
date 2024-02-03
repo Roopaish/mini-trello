@@ -1,5 +1,7 @@
-import { Column } from "@/components/board/board-column";
-import { Task } from "@/lib/store";
+"use server";
+
+import type { Column } from "@/components/board/board-column";
+import type { Task } from "@/lib/store";
 
 const users: { username: string; password: string }[] = [
   { username: "roopaish", password: "123456" },

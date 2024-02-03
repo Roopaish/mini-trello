@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     );
   }
 
+  console.log({ allUsers: db.users });
   const user = db.users.find((u) => u.username === username);
 
   if (!!user) {
