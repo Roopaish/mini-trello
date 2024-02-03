@@ -20,11 +20,14 @@ export async function clearSession() {
 export async function isUserAuthenticated() {
   const data = await getSessionData();
 
+  console.log({ data });
   if (!!data?.username && !!data?.password) {
     const user = db.users.find((u) => u.username === data?.username);
+    console.log({ user });
 
     if (!!user) {
       if (data?.password === user.password) {
+        console.log({ password: data?.password });
         return true;
       }
     }
